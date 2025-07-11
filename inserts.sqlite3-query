@@ -1,0 +1,35 @@
+-- database: ./db.sqlite3
+INSERT INTO core_curso (nome, descricao, carga_horaria, imagem)
+VALUES
+('Eletricista Industrial', 'Curso completo de eletricista para a indústria.', 160, NULL),
+('Mecânica Básica', 'Fundamentos de mecânica para jovens e adultos.', 120, NULL),
+('Informática para Iniciantes', 'Introdução ao uso do computador e ferramentas do Office.', 80, NULL),
+('Automação Industrial', 'Curso prático de automação e CLPs.', 200, NULL),
+('Logística', 'Gestão e operações logísticas para empresas.', 90, NULL);
+INSERT INTO core_noticia (titulo, conteudo, imagem, data_publicacao)
+VALUES
+('Inscrições abertas para novos cursos!', 'Já estão abertas as inscrições para os cursos de 2025. Não perca a oportunidade!', NULL, '2025-07-01 08:00:00'),
+('Novo laboratório de automação inaugurado', 'A unidade SENAI inaugura laboratório de automação com equipamentos de última geração.', NULL, '2025-07-10 09:30:00'),
+('Visita técnica à indústria local', 'Alunos do curso de mecânica visitaram a fábrica XYZ para conhecer processos produtivos.', NULL, '2025-07-08 15:45:00'),
+('Palestra sobre segurança do trabalho', 'Na próxima semana teremos uma palestra especial sobre segurança nas empresas.', NULL, '2025-07-12 19:00:00');
+INSERT INTO core_aluno (nome, email, telefone, data_nascimento, foto)
+VALUES
+('Lucas Silva', 'lucas.silva@email.com', '11998761234', '2004-05-14', NULL),
+('Mariana Souza', 'mariana.souza@email.com', '11998764321', '2003-11-25', NULL),
+('João Santos', 'joao.santos@email.com', '11991239876', '2005-02-09', NULL),
+('Beatriz Lima', 'beatriz.lima@email.com', '11993456789', '2004-07-19', NULL);
+-- Matricula Lucas Silva nos cursos 1 e 3
+INSERT INTO core_aluno_cursos (aluno_id, curso_id) VALUES (1, 1), (1, 3);
+
+-- Matricula Mariana Souza nos cursos 2 e 4
+INSERT INTO core_aluno_cursos (aluno_id, curso_id) VALUES (2, 2), (2, 4);
+
+-- Matricula João Santos nos cursos 1, 2 e 5
+INSERT INTO core_aluno_cursos (aluno_id, curso_id) VALUES (3, 1), (3, 2), (3, 5);
+
+-- Matricula Beatriz Lima no curso 3
+INSERT INTO core_aluno_cursos (aluno_id, curso_id) VALUES (4, 3);
+INSERT INTO core_contato (nome, email, mensagem, data_envio)
+VALUES
+('Carlos Alberto', 'carlos@email.com', 'Gostaria de saber mais sobre o curso de logística.', '2025-07-12 13:25:00'),
+('Fernanda Torres', 'fernanda@email.com', 'Quando começa o curso de eletricista?', '2025-07-10 17:10:00');

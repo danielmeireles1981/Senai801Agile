@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SENAI Agile</title>
+    <link rel="manifest" href="{% static 'manifest.json' %}" />
+    <meta name="theme-color" content="#E60012" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="icon" href="{% static 'icons/icon-192x192.png' %}" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="{% url 'noticias' %}" class="nav-brand">SENAI</a>
+
+        <button class="nav-toggle" aria-label="Abrir menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul class="nav-menu">
+          <li>
+            <a href="{% url 'noticias' %}">Notícias</a>
+          </li>
+          <li>
+            <a href="{% url 'cursos' %}">Cursos</a>
+          </li>
+          <li>
+            <a href="{% url 'cadastro_aluno' %}">Perfil</a>
+          </li>
+          <li>
+          <a href="{% url 'lista_alunos' %}">Alunos</a>
+          </li>
+          <li>
+            <a href="{% url 'contato' %}">Contato</a>
+          </li>
+          <li>
+            <a href="{% url 'localizacao' %}">Localização</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      {% block content %}
+
+      {% endblock %}
+    </main>
+
+    <footer>
+      <p>&copy; {{ year|default:'2025' }} SENAI</p>
+    </footer>
+
+    <script>
+      // Service Worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register("{% static 'service-worker.js' %}")
+      }
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        const navToggle = document.querySelector('.nav-toggle')
+        const navMenu = document.querySelector('.nav-menu')
+        let navOverlay = document.querySelector('.nav-overlay')
+      
+        // Criar overlay se não existir
+        if (!navOverlay) {
+          navOverlay = document.createElement('div')
+          navOverlay.className = 'nav-overlay'
+          document.body.appendChild(navOverlay)
+        }
+      
+        function toggleMenu() {
+          navToggle.classList.toggle('active')
+          navMenu.classList.toggle('active')
+          navOverlay.classList.toggle('active')
+          // Removemos a manipulação do overflow do body para permitir scroll
+        }
+      
+        function closeMenu() {
+          navToggle.classList.remove('active')
+          navMenu.classList.remove('active')
+          navOverlay.classList.remove('active')
+        }
+      
+        // Event listeners
+        navToggle.addEventListener('click', toggleMenu)
+        navOverlay.addEventListener('click', closeMenu)
+      
+        // Fechar menu ao clicar em um link
+        navMenu.addEventListener('click', function (e) {
+          if (e.target.tagName === 'A') {
+            closeMenu()
+          }
+        })
+      
+        // Fechar menu com ESC
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            closeMenu()
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
